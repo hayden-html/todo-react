@@ -11,7 +11,7 @@ interface Props {
   setNotes: (notes: string[]) => void;
 }
 
-function AddNoteForm({ setNotesTrigger }) {
+function AddNoteForm({ setNotes }) {
   const [note, setNote] = useState("");
 
   function createNote(e: ChangeEvent<HTMLFormElement>) {
@@ -28,9 +28,8 @@ function AddNoteForm({ setNotesTrigger }) {
     };
 
     const updatedNotes = [...existingNotes, newNote];
-
+    setNotes(updatedNotes);
     localStorage.setItem("notes", JSON.stringify(updatedNotes));
-    setNotesTrigger((prev) => prev + 1);
     setNote("");
   }
 
