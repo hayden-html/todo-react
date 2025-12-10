@@ -7,11 +7,10 @@ interface Note {
 }
 
 interface Props {
-  notes: string[];
-  setNotes: (notes: string[]) => void;
+  setNotes: (notes: Note[]) => void;
 }
 
-function AddNoteForm({ setNotes }) {
+function AddNoteForm({ setNotes }: Props) {
   const [note, setNote] = useState("");
 
   function createNote(e: ChangeEvent<HTMLFormElement>) {

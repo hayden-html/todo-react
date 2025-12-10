@@ -1,19 +1,25 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import AddNoteForm from "./components/AddNoteForm";
-import Note from "./components/Note";
+import Note from "./components/Note.tsx";
 
-// interface Note {
-//   id: string;
-//   createdAt: string;
-//   noteBody: string;
-// }
+type;
+
+interface Note {
+  id: string;
+  createdAt: string;
+  noteBody: string;
+}
 
 function App() {
   // Set notes from localStorage data on render
-  const [notes, setNotes] = useState(() => {
-    const notesStorage = localStorage.getItem("notes");
-    return notesStorage ? JSON.parse(notesStorage) : [];
+  const [notes, setNotes] = useState<Note[]>(() => {
+    try {
+      const notesStorage = localStorage.getItem("notes");
+      return notesStorage ? JSON.parse(notesStorage) : [];
+    } catch {
+      return [];
+    }
   });
 
   // Update localStorage when notes is updated
@@ -29,15 +35,15 @@ function App() {
           <AddNoteForm setNotes={setNotes} />
           <div className="">
             <ul>
-              {notes?.map((note, index) => (
+              {notes?.map((note: Note, index: number) => (
                 <Note
                   note={note} // note data
-                  onUpdateNote={(updateNote) => {
+                  onUpdateNote={(updateNote: Note) => {
                     setNotes((prevNotes) =>
                       prevNotes.map((n) => (n.id === note.id ? updateNote : n))
                     );
                   }}
-                  deleteNote={(noteId) => {
+                  deleteNote={(noteId: string) => {
                     setNotes((prevNotes) =>
                       prevNotes.filter((n) => n.id !== noteId)
                     );
