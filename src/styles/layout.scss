@@ -1,0 +1,26 @@
+.workspaces {
+  label.active {
+    background-color: rgb(250 204 21);
+    color: rgb(0 0 0);
+  }
+
+  label {
+    border-radius: 0.5rem;
+    font-weight: 600;
+    padding-top: 0.25rem;
+    display: block;
+    text-align: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    color: rgb(250 204 21);
+    border-color: rgb(250 204 21);
+    border-width: 2px;
+  }
+
+  input {
+    position: absolute;
+    height: 0px;
+    width: 0px;
+    opacity: 0;
+  }
+}
