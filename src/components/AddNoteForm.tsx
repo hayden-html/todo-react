@@ -46,7 +46,7 @@ function AddNoteForm({ setNotes }: Props) {
         />
         <button
           type="submit"
-          className="mx-2 p-2 bg-yellow-400 text-yellow-950 font-semibold rounded-lg "
+          className="mx-2 p-2 bg-yellow-400 text-black font-semibold rounded-lg "
         >
           Add Note
         </button>
