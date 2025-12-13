@@ -1,5 +1,5 @@
 export default function Notes({ note, onUpdateNote, deleteNote }) {
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const updatedNote = { ...note, noteBody: e.target.value };
     onUpdateNote(updatedNote);
   };

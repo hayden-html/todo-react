@@ -1,10 +1,6 @@
 import { useState, type ChangeEvent } from "react";
-
-interface Note {
-  id: string;
-  createdAt: string;
-  noteBody: string;
-}
+import type { Note } from "../types";
+import "../styles/notes.scss";
 
 interface Props {
   setNotes: (notes: Note[]) => void;

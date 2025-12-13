@@ -1,15 +1,9 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import AddNoteForm from "./components/AddNoteForm";
-import Note from "./components/Note.tsx";
-
-type;
-
-interface Note {
-  id: string;
-  createdAt: string;
-  noteBody: string;
-}
+import NoteItem from "./components/Note.tsx";
+import type { Note } from "./types.ts";
+import "./styles/notes.scss";
 
 function App() {
   // Set notes from localStorage data on render
