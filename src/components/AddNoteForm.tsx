@@ -36,17 +36,18 @@ function AddNoteForm({ setNotes }: Props) {
   return (
     <>
       <form onSubmit={createNote}>
-        <label htmlFor="addNote" className="block">
-          Add Note:
-        </label>
         <input
           type="text"
-          className="border-2 p-2"
+          className="note"
           value={note}
           onChange={updateNote}
           name="noteContent"
+          placeholder="Start Typing..."
         />
-        <button type="submit" className="mx-2 border-2 p-2">
+        <button
+          type="submit"
+          className="mx-2 p-2 bg-yellow-400 text-yellow-950 font-semibold rounded-lg "
+        >
           Add Note
         </button>
       </form>

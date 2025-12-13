@@ -1,0 +1,13 @@
+.note {
+  border-width: 2px;
+  border-color: rgb(250 204 21);
+  border-radius: 0.5rem;
+  color: rgb(255 255 255);
+  padding: 0.5rem;
+
+  &:focus-within {
+    border-color: white;
+    // border-color: rgb(59 130 246);
+    outline: none;
+  }
+}

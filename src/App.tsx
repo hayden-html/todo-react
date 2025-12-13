@@ -23,29 +23,31 @@ function App() {
 
   return (
     <>
-      <div className="p-4">
-        <header className="text-xl font-bold mb-4">To Do List</header>
+      <div className="bg-neutral-800 min-h-screen p-4">
+        <header className="text-2xl font-bold mb-6 text-yellow-400">
+          To Do List
+        </header>
         <main>
-          <AddNoteForm setNotes={setNotes} />
-          <div className="">
-            <ul>
-              {notes?.map((note: Note, index: number) => (
-                <Note
-                  note={note} // note data
-                  onUpdateNote={(updateNote: Note) => {
-                    setNotes((prevNotes) =>
-                      prevNotes.map((n) => (n.id === note.id ? updateNote : n))
-                    );
-                  }}
-                  deleteNote={(noteId: string) => {
-                    setNotes((prevNotes) =>
-                      prevNotes.filter((n) => n.id !== noteId)
-                    );
-                  }}
-                  key={index}
-                />
-              ))}
-            </ul>
+          <div className="mb-6">
+            <AddNoteForm setNotes={setNotes} />
+          </div>
+          <div className="flex gap-3">
+            {notes?.map((note: Note, index: number) => (
+              <NoteItem
+                note={note} // note data
+                onUpdateNote={(updateNote: Note) => {
+                  setNotes((prevNotes) =>
+                    prevNotes.map((n) => (n.id === note.id ? updateNote : n))
+                  );
+                }}
+                deleteNote={(noteId: string) => {
+                  setNotes((prevNotes) =>
+                    prevNotes.filter((n) => n.id !== noteId)
+                  );
+                }}
+                key={index}
+              />
+            ))}
           </div>
         </main>
       </div>
