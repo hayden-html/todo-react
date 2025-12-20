@@ -1,26 +1,77 @@
-.workspaces {
-  label.active {
-    background-color: rgb(250 204 21);
-    color: rgb(0 0 0);
-  }
+// .workspace__option.active {
+//   background-color: rgb(250 204 21);
+//   color: rgb(0 0 0);
+// }
 
-  label {
-    border-radius: 0.5rem;
-    font-weight: 600;
-    padding-top: 0.25rem;
-    display: block;
-    text-align: center;
-    width: 2.25rem;
-    height: 2.25rem;
-    color: rgb(250 204 21);
-    border-color: rgb(250 204 21);
-    border-width: 2px;
-  }
+.workspace__option,
+.workspace__create {
+  font-weight: 600;
+  padding-top: 0.25rem;
+  display: block;
+  text-align: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-width: 2px;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
 
-  input {
-    position: absolute;
-    height: 0px;
-    width: 0px;
-    opacity: 0;
-  }
+.workspace__option input,
+.hidden-input {
+  position: absolute;
+  height: 0px;
+  width: 0px;
+  opacity: 0;
+}
+
+// .workspace__create {}
+
+.dashboard__modal {
+  border-width: 2px;
+  border-color: rgb(250 204 21);
+  border-radius: 0.5rem;
+  width: fit-content;
+  margin: auto;
+  background-color: rgb(38 38 38);
+  padding: 1rem;
+  display: block;
+  position: relative;
+}
+
+.modal__heading {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: rgb(250 204 21);
+}
+
+.modal__forms {
+  display: block;
+}
+
+.modal__field {
+  margin-bottom: 1rem;
+}
+
+.modal__label {
+  color: rgb(250 204 21);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.modal__input {
+  border-color: rgb(250 204 21);
+  border-width: 2px;
+  border-radius: 0.25rem;
+  padding: 0.25rem;
+  color: rgb(255 255 255);
+}
+
+.modal__button {
+  background-color: rgb(250 204 21);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-weight: 600;
 }

@@ -1,13 +1,33 @@
-.note {
+.note__container {
   border-width: 2px;
-  border-color: rgb(250 204 21);
   border-radius: 0.5rem;
   color: rgb(255 255 255);
   padding: 0.5rem;
+  width: fit-content;
+}
 
-  &:focus-within {
-    border-color: white;
+.form__textarea,
+.note__textarea {
+  resize: none;
+  &:focus-within,
+  &:focus-visible {
+    border: none;
     // border-color: rgb(59 130 246);
     outline: none;
   }
+}
+
+.form__grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto;
+  max-width: 400px;
+}
+
+.form__submit {
+  max-width: fit-content;
+}
+
+.form__select-workspace {
+  order: 2;
 }
