@@ -2,7 +2,9 @@ export type Note = {
   id: string;
   createdAt: string;
   noteBody: string;
-  workspaceId: string;
+  workspaceName: string;
+  height: string;
+  width: string;
 };
 
 export type Workspace = {

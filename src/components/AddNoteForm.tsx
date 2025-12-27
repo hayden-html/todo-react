@@ -6,20 +6,21 @@ import type { IconType } from "react-icons";
 
 interface Props {
   setNotes: (notes: Note[]) => void;
-  currentWorkspace: string;
+  selectedWorkspace: string;
   workspaces: Workspace[];
 }
 
-function AddNoteForm({ setNotes, currentWorkspace, workspaces }: Props) {
+function AddNoteForm({ setNotes, selectedWorkspace, workspaces }: Props) {
   const [note, setNote] = useState({
     body: "",
-    workspaceId:
+    workspaceName:
       // if all, the workdspace need to be set by the fieldset
-      currentWorkspace === "all" ? workspaces[0].name : currentWorkspace,
+      selectedWorkspace === "all" ? workspaces[0].name : selectedWorkspace,
   });
 
   function createNote(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
+
     // set to local storage
     const noteStorage = localStorage.getItem("notes");
 
@@ -29,21 +30,22 @@ function AddNoteForm({ setNotes, currentWorkspace, workspaces }: Props) {
       id: crypto.randomUUID(),
       noteBody: note.body,
       createdAt: new Date().toISOString(),
-      workspaceId: note.workspaceId,
+      workspaceName: note.workspaceName,
+      height: "4rem",
+      width: "4rem",
     };
 
     const updatedNotes = [...existingNotes, newNote];
     setNotes(updatedNotes);
-    localStorage.setItem("notes", JSON.stringify(updatedNotes));
     //
     setNote({
       body: "",
-      workspaceId:
-        currentWorkspace === "all" ? workspaces[0].name : currentWorkspace,
+      workspaceName:
+        selectedWorkspace === "all" ? workspaces[0].name : selectedWorkspace,
     });
   }
 
-  function updateNoteBody(e: ChangeEvent<HTMLInputElement>) {
+  function updateNoteBody(e: ChangeEvent<HTMLTextAreaElement>) {
     setNote((prev) => ({ ...prev, body: e.target.value }));
   }
 
@@ -53,13 +55,12 @@ function AddNoteForm({ setNotes, currentWorkspace, workspaces }: Props) {
         <div
           style={{
             borderColor: workspaces.find(
-              (workspace) => workspace.name === note.workspaceId
+              (workspace) => workspace.name === note.workspaceName
             )?.color,
           }}
           className="note__container"
         >
-          <input
-            type="text"
+          <textarea
             className="form__textarea"
             value={note.body}
             onChange={updateNoteBody}
@@ -68,7 +69,7 @@ function AddNoteForm({ setNotes, currentWorkspace, workspaces }: Props) {
             autoComplete="off"
           />
         </div>
-        {currentWorkspace === "all" && (
+        {selectedWorkspace === "all" && (
           <fieldset
             name="select-workspace"
             className="form__select-workspace flex gap-3"
@@ -82,7 +83,7 @@ function AddNoteForm({ setNotes, currentWorkspace, workspaces }: Props) {
                 <label
                   htmlFor={workspace.id}
                   className={`p-2 rounded-4xl border-2 ${
-                    workspace.name === note.workspaceId
+                    workspace.name === note.workspaceName
                       ? "border-white"
                       : workspace.color
                   }`}
@@ -94,11 +95,11 @@ function AddNoteForm({ setNotes, currentWorkspace, workspaces }: Props) {
                     className="hidden-input"
                     id={workspace.id}
                     value={workspace.name}
-                    checked={note.workspaceId === workspace.name}
+                    checked={note.workspaceName === workspace.name}
                     onChange={(e) =>
                       setNote((prev) => ({
                         ...prev,
-                        workspaceId: e.target.value,
+                        workspaceName: e.target.value,
                       }))
                     }
                     type="radio"
@@ -111,10 +112,10 @@ function AddNoteForm({ setNotes, currentWorkspace, workspaces }: Props) {
         )}
         <button
           type="submit"
-          className="form__submit mx-2 px-4  text-black font-semibold rounded-lg "
+          className="form__submit"
           style={{
             backgroundColor: workspaces.find(
-              (workspace) => workspace.name === note.workspaceId
+              (workspace) => workspace.name === note.workspaceName
             )?.color,
           }}
         >

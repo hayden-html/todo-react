@@ -1,8 +1,9 @@
+import { useEffect, useRef } from "react";
 import "../styles/notes.scss";
 import type { Note, Workspace } from "../types";
 import { MdClose } from "react-icons/md";
 
-export default function Notes({
+export default function Note({
   note,
   onUpdateNote,
   deleteNote,
@@ -22,12 +23,41 @@ export default function Notes({
     deleteNote(note.id);
   };
 
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const rect = entry.target.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
+        if (note.width !== `${width}px` || note.height !== `${height}px`) {
+          const updatedNote = {
+            ...note,
+            width: `${width}px`,
+            height: `${height}px`,
+          };
+          onUpdateNote(updatedNote);
+        }
+      }
+    });
+    resizeObserver.observe(container);
+    return () => resizeObserver.disconnect();
+  }, [note, onUpdateNote]);
+  const defaultHeight = "200px";
+  const defaultWidth = "200px";
   return (
     <div
-      className="relative w-fit note__container"
+      ref={containerRef}
+      className="relative note__container"
       style={{
+        width: note.width || defaultWidth,
+        height: note.height || defaultHeight,
         borderColor: workspaces.find(
-          (workspace) => note.workspaceId === workspace.name
+          (workspace) => note.workspaceName === workspace.name
         )?.color,
       }}
     >

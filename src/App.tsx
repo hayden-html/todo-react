@@ -50,8 +50,6 @@ function App() {
     workspaces.length > 1 ? "all" : workspaces[0].name
   );
 
-  console.log(notes);
-
   return (
     <>
       <div className="flex bg-neutral-800 min-h-screen">
@@ -80,21 +78,21 @@ function App() {
             <div className="mb-6">
               <AddNoteForm
                 setNotes={setNotes}
-                currentWorkspace={selectedWorkspace}
+                selectedWorkspace={selectedWorkspace}
                 workspaces={workspaces}
               />
             </div>
             <div className="flex gap-3">
               {notes
-                ?.filter(
+                .filter(
                   (note) =>
                     selectedWorkspace === "all" ||
-                    note.workspaceId ===
+                    note.workspaceName ===
                       workspaces.find(
                         (workspace) => workspace.name == selectedWorkspace
                       )?.name
                 )
-                .map((note: Note, index: number) => (
+                .map((note: Note) => (
                   <NoteItem
                     note={note} // note data
                     onUpdateNote={(updateNote: Note) => {
@@ -109,7 +107,7 @@ function App() {
                         prevNotes.filter((n) => n.id !== noteId)
                       );
                     }}
-                    key={index}
+                    key={note.id}
                     workspaces={workspaces}
                   />
                 ))}

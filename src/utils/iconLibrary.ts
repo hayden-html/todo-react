@@ -29,7 +29,7 @@ export const workspaceIcons: WorkspaceIcon[] = [
   { id: "pets", component: MdOutlinePets, label: "Pets", size: "1.5rem" },
   { id: "rocket", component: MdRocketLaunch, label: "Rocket", size: "1.5rem" },
   {
-    id: "Gaming",
+    id: "gaming",
     component: MdSportsEsports,
     label: "Gaming",
     size: "1.875rem",
