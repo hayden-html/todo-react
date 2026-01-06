@@ -6,6 +6,7 @@ import type { Note, Workspace } from "./types.ts";
 import "./styles/notes.scss";
 import Sidebar from "./components/layout/Sidebar.tsx";
 import CreateWorkspaceModal from "./components/CreateWorkspaceModal.tsx";
+import Timer from "./components/Timer.tsx";
 
 function App() {
   // Set notes from localStorage data on render
@@ -111,6 +112,7 @@ function App() {
                     workspaces={workspaces}
                   />
                 ))}
+              <Timer></Timer>
             </div>
           </main>
         </div>
