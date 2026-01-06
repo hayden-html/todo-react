@@ -53,6 +53,7 @@ export default function Timer() {
     setStartTime(null);
     setNow(null);
     setLaps(null);
+    setTimeElapsed(0);
   }
 
   let timePassed = timeElapsed / 1000;
