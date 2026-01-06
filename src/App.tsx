@@ -7,6 +7,7 @@ import "./styles/notes.scss";
 import Sidebar from "./components/layout/Sidebar.tsx";
 import CreateWorkspaceModal from "./components/CreateWorkspaceModal.tsx";
 import Timer from "./components/Timer.tsx";
+import TicTacToe from "./components/TicTacToe.tsx";
 
 function App() {
   // Set notes from localStorage data on render
@@ -112,7 +113,7 @@ function App() {
                     workspaces={workspaces}
                   />
                 ))}
-              <Timer></Timer>
+              <TicTacToe></TicTacToe>
             </div>
           </main>
         </div>
