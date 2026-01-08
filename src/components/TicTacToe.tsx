@@ -12,6 +12,7 @@ function Square({ onSquareClick, value }) {
 export default function TicTacToe() {
   const [board, setBoard] = useState(Array(9).fill(""));
   const [isXNext, setIsXNext] = useState(true);
+  const [status, setStatus] = useState("Next Go: x");
 
   function handleClick(x) {
     if (board[x] || gameComplete(board)) return;
@@ -21,9 +22,26 @@ export default function TicTacToe() {
     } else {
       updatedBoard[x] = "o";
     }
-    setIsXNext(!isXNext);
     setBoard(updatedBoard);
+
+    if (gameComplete(updatedBoard)) {
+      return setStatus(() => (isXNext ? "x" : "o") + " wins!");
+    } else if (isBoardFull(updatedBoard)) {
+      return setStatus(() => "Draw!");
+    } else {
+      setIsXNext(!isXNext);
+      setStatus(() => "Next Go: " + (isXNext ? "o" : "x"));
+    }
     return;
+  }
+
+  function isBoardFull(x) {
+    for (let i = 0; i < x.length; i++) {
+      if (x[i] == "") {
+        return false;
+      }
+    }
+    return true;
   }
 
   function gameComplete(board) {
@@ -38,15 +56,22 @@ export default function TicTacToe() {
       [2, 4, 6],
     ];
     for (let i = 0; i < lines.length; i++) {
-      let [a, b, c] = lines[i];
+      const [a, b, c] = lines[i];
       if (board[a] && board[a] == board[b] && board[a] == board[c]) {
         return board[a];
       }
     }
   }
 
+  function resetGame() {
+    setBoard(Array(9).fill(""));
+    setIsXNext(true);
+    setStatus("Next Go: x");
+  }
+
   return (
     <div className="board flex flex-col gap-0.5">
+      <h1 className="text-white">{status}</h1>
       <div className="flex gap-0.5">
         <Square onSquareClick={() => handleClick(0)} value={board[0]} />
         <Square onSquareClick={() => handleClick(1)} value={board[1]} />
@@ -62,6 +87,9 @@ export default function TicTacToe() {
         <Square onSquareClick={() => handleClick(7)} value={board[7]} />
         <Square onSquareClick={() => handleClick(8)} value={board[8]} />
       </div>
+      <button className="text-white" onClick={() => resetGame()}>
+        Reset
+      </button>
     </div>
   );
 }
