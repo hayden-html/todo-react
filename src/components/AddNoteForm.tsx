@@ -14,7 +14,7 @@ function AddNoteForm({ setNotes, selectedWorkspace, workspaces }: Props) {
   const [note, setNote] = useState({
     body: "",
     workspaceName:
-      // if all, the workdspace need to be set by the fieldset
+      // if all, the workspace need to be set by the fieldset
       selectedWorkspace === "all" ? workspaces[0].name : selectedWorkspace,
   });
 
@@ -49,14 +49,18 @@ function AddNoteForm({ setNotes, selectedWorkspace, workspaces }: Props) {
     setNote((prev) => ({ ...prev, body: e.target.value }));
   }
 
+  const currentColor = workspaces.find((workspace) =>
+    selectedWorkspace == "all"
+      ? workspace.name === note.workspaceName
+      : workspace.name === selectedWorkspace
+  )?.color;
+
   return (
     <>
       <form onSubmit={createNote} className="form__grid gap-x_2 gap-y-3">
         <div
           style={{
-            borderColor: workspaces.find(
-              (workspace) => workspace.name === note.workspaceName
-            )?.color,
+            borderColor: currentColor,
           }}
           className="note__container"
         >
@@ -82,12 +86,14 @@ function AddNoteForm({ setNotes, selectedWorkspace, workspaces }: Props) {
               return (
                 <label
                   htmlFor={workspace.id}
-                  className={`p-2 rounded-4xl border-2 ${
-                    workspace.name === note.workspaceName
-                      ? "border-white"
-                      : workspace.color
-                  }`}
-                  style={{ backgroundColor: workspace.color }}
+                  className={`p-2 rounded-4xl border-2 `}
+                  style={{
+                    backgroundColor: workspace.color,
+                    borderColor:
+                      workspace.name === note.workspaceName
+                        ? "white"
+                        : workspace.color,
+                  }}
                   key={index}
                 >
                   <IconComponent style={{ fontSize: iconData?.size }} />
@@ -114,9 +120,7 @@ function AddNoteForm({ setNotes, selectedWorkspace, workspaces }: Props) {
           type="submit"
           className="form__submit"
           style={{
-            backgroundColor: workspaces.find(
-              (workspace) => workspace.name === note.workspaceName
-            )?.color,
+            backgroundColor: currentColor,
           }}
         >
           Add Note
