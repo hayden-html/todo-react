@@ -11,17 +11,19 @@ import {
   MdOutlinePets,
   MdRocketLaunch,
   MdSportsEsports,
+  MdEdit,
 } from "react-icons/md";
 import { workspaceIcons } from "../../utils/iconLibrary";
 
 export default function Sidebar({
   setIsNewWorkspaceModal,
+  setIsEditWorkspaceModal,
   workspaces,
   selectedWorkspace,
   setSelectedWorkspace,
 }: {
   setIsNewWorkspaceModal: (x: boolean) => void;
-
+  setIsEditWorkspaceModal: (x: boolean) => void;
   workspaces: Workspace[];
   selectedWorkspace: string;
   setSelectedWorkspace: (x: string) => void;
@@ -35,9 +37,9 @@ export default function Sidebar({
       className="p-4 border-r-2 grid grid-cols-1 items-center"
       style={{ borderColor: selectedWorkspaceData?.color }}
     >
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-4">
         <fieldset
-          className="workspace__list flex flex-col gap-4 mb-4"
+          className="workspace__list flex flex-col gap-4"
           name="workspace"
         >
           {workspaces.length > 1 && (
@@ -115,6 +117,20 @@ export default function Sidebar({
           }}
         >
           <MdAdd className="mx-auto text-2xl -mt-1"></MdAdd>
+        </button>
+        <button
+          onClick={() => setIsEditWorkspaceModal(true)}
+          className="workspace__create text-center"
+          style={{
+            color:
+              selectedWorkspace === "all"
+                ? "var(--all-color)"
+                : workspaces.find(
+                    (workspace) => workspace.name === selectedWorkspace
+                  )?.color,
+          }}
+        >
+          <MdEdit className="mx-auto text-2xl -mt-1 " />
         </button>
       </div>
     </nav>

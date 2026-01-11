@@ -12,6 +12,7 @@ import {
   MdShoppingCart,
   MdSportsEsports,
 } from "react-icons/md";
+import { BsX } from "react-icons/bs";
 
 export default function CreateWorkspaceModal({
   setIsNewWorkspaceModal,
@@ -50,7 +51,7 @@ export default function CreateWorkspaceModal({
   ];
 
   return (
-    <div className="absolute top-0 right-0 bottom-0 left-0 bg-black/30 h-screen w-screen flex items-center">
+    <div className="modal-background">
       <div
         className={`dashboard__modal`}
         style={{ borderColor: newWorkspace.color }}
@@ -62,10 +63,10 @@ export default function CreateWorkspaceModal({
 
           <button
             onClick={() => setIsNewWorkspaceModal(false)}
-            className="text-white text-2xl"
+            className="text-2xl"
             style={{ color: newWorkspace.color }}
           >
-            x
+            <BsX className="text-[2.5rem]"></BsX>
           </button>
         </div>
         <div className="create-workspace__form">

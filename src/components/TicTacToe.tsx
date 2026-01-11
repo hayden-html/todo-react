@@ -2,7 +2,13 @@ import { useState } from "react";
 
 // Building react tutorial, but without looking at docs for a challenge
 
-function Square({ onSquareClick, value }) {
+function Square({
+  onSquareClick,
+  value,
+}: {
+  onSquareClick: () => void;
+  value: string;
+}) {
   return (
     <button className="bg-white w-8 aspect-square mb-0" onClick={onSquareClick}>
       {value}
@@ -14,7 +20,7 @@ export default function TicTacToe() {
   const [isXNext, setIsXNext] = useState(true);
   const [status, setStatus] = useState("Next Go: x");
 
-  function handleClick(x) {
+  function handleClick(x: number) {
     if (board[x] || gameComplete(board)) return;
     const updatedBoard = board.slice();
     if (isXNext) {
@@ -35,7 +41,7 @@ export default function TicTacToe() {
     return;
   }
 
-  function isBoardFull(x) {
+  function isBoardFull(x: string[]) {
     for (let i = 0; i < x.length; i++) {
       if (x[i] == "") {
         return false;
@@ -44,7 +50,7 @@ export default function TicTacToe() {
     return true;
   }
 
-  function gameComplete(board) {
+  function gameComplete(board: string[]) {
     const lines = [
       [0, 1, 2],
       [3, 4, 5],

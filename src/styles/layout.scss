@@ -24,11 +24,28 @@
   opacity: 0;
 }
 
-// .workspace__create {}
+.modal-background {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  background-color: color-mix(
+    in oklab,
+    var(--color-black) /* #000 = #000000 */ 30%,
+    transparent
+  );
+
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  z-index: 10;
+}
 
 .dashboard__modal {
   border-width: 2px;
-  border-color: rgb(250 204 21);
+  // border-color: rgb(250 204 21);
   border-radius: 0.5rem;
   width: fit-content;
   margin: auto;
@@ -36,6 +53,7 @@
   padding: 1rem;
   display: block;
   position: relative;
+  z-index: 100;
 }
 
 .modal__heading {
@@ -46,6 +64,11 @@
   color: rgb(250 204 21);
 }
 
+.modal__close {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  margin-top: -0.5rem;
+}
 .modal__forms {
   display: block;
 }

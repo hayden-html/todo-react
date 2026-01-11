@@ -6,8 +6,9 @@ import type { Note, Workspace } from "./types.ts";
 import "./styles/notes.scss";
 import Sidebar from "./components/layout/Sidebar.tsx";
 import CreateWorkspaceModal from "./components/CreateWorkspaceModal.tsx";
-import Timer from "./components/Timer.tsx";
+// import Timer from "./components/Timer.tsx";
 import TicTacToe from "./components/TicTacToe.tsx";
+import EditWorkspacesModal from "./components/EditWorkspacesModal.tsx";
 
 function App() {
   // Set notes from localStorage data on render
@@ -26,6 +27,7 @@ function App() {
   }, [notes]);
 
   const [isNewWorkspaceModal, setIsNewWorkspaceModal] = useState(false);
+  const [isEditWorkspaceModal, setIsEditWorkspaceModal] = useState(false);
 
   const [workspaces, setWorkspaces] = useState<Workspace[]>(() => {
     const defaultWorkspace: Workspace[] = [
@@ -60,6 +62,7 @@ function App() {
           workspaces={workspaces}
           selectedWorkspace={selectedWorkspace}
           setSelectedWorkspace={setSelectedWorkspace}
+          setIsEditWorkspaceModal={setIsEditWorkspaceModal}
         ></Sidebar>
 
         <div className=" grow p-4">
@@ -124,6 +127,14 @@ function App() {
           setIsNewWorkspaceModal={setIsNewWorkspaceModal}
           setWorkspaces={setWorkspaces}
           setSelectedWorkspace={setSelectedWorkspace}
+        />
+      )}
+
+      {isEditWorkspaceModal && (
+        <EditWorkspacesModal
+          setIsEditWorkspaceModal={setIsEditWorkspaceModal}
+          workspaces={workspaces}
+          setWorkspaces={setWorkspaces}
         />
       )}
     </>
