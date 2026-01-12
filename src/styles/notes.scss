@@ -5,6 +5,7 @@
   padding: 0.5rem;
   // width: fit-content;
   resize: both;
+
   overflow: hidden;
   min-height: 50px;
   min-width: 200px;
@@ -56,4 +57,86 @@
 
 .form__select-workspace {
   order: 2;
+}
+
+.note-menu {
+  position: absolute;
+  display: none;
+
+  right: -12.7rem;
+  top: calc(0.25rem * -1);
+  z-index: 10;
+  top: 0;
+
+  // overflow: hidden;
+}
+
+.note-menu::before {
+  width: 1rem;
+  aspect-ratio: 1 / 1;
+  rotate: 45deg;
+  position: absolute;
+  top: 1rem;
+  left: 0;
+  // border: 2px solid red;
+  // background-color: rgb(82 82 82);
+  background-color: rgb(64 64 64);
+  margin-left: -0.3rem;
+  margin-top: 0.3rem;
+  z-index: 10;
+  content: "";
+}
+
+.note-menu-link {
+  min-width: 12rem;
+  text-align: start;
+  position: relative;
+  z-index: 11;
+  padding: 0.5rem 1rem 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(64 64 64);
+  &:hover {
+    background-color: rgb(82 82 82);
+  }
+
+  &:first-child {
+    border-radius: 0.5rem 0.5rem 0 0;
+  }
+
+  &:last-child {
+    border-radius: 0 0 0.5rem 0.5rem;
+  }
+}
+
+.note-actions {
+  &:focus-within {
+    .note-menu {
+      display: block;
+    }
+  }
+}
+
+.note-submenu {
+  position: absolute;
+}
+
+.note-submenu__head {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  &:hover {
+    .note-submenu__list {
+      display: block;
+    }
+  }
+}
+
+.note-submenu__list {
+  display: none;
+  right: -12.25rem;
+  top: 0;
+  z-index: 20;
+  overflow: auto;
 }

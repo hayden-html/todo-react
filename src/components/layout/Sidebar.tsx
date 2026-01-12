@@ -34,7 +34,7 @@ export default function Sidebar({
 
   return (
     <nav
-      className="p-4 border-r-2 grid grid-cols-1 items-center"
+      className="p-4 border-r-2 grid grid-cols-1 items-center max-h-screen"
       style={{ borderColor: selectedWorkspaceData?.color }}
     >
       <div className="flex flex-col gap-4">

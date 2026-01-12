@@ -7,7 +7,7 @@ import "./styles/notes.scss";
 import Sidebar from "./components/layout/Sidebar.tsx";
 import CreateWorkspaceModal from "./components/CreateWorkspaceModal.tsx";
 // import Timer from "./components/Timer.tsx";
-import TicTacToe from "./components/TicTacToe.tsx";
+// import TicTacToe from "./components/TicTacToe.tsx";
 import EditWorkspacesModal from "./components/EditWorkspacesModal.tsx";
 
 function App() {
@@ -21,7 +21,25 @@ function App() {
     }
   });
 
+  const duplicateNote = (note: Note) => {
+    const duplicateNote = {
+      ...note,
+      id: crypto.randomUUID(),
+      createdAt: new Date().toISOString(),
+    };
+    setNotes((prev) => [...prev, duplicateNote]);
+  };
+
+  const updateNote = (updatedValue: string, noteId: string) => {
+    console.log(noteId);
+    setNotes((prev) =>
+      prev.map((note) =>
+        note.id == noteId ? { ...note, workspaceName: updatedValue } : note
+      )
+    );
+  };
   // Update localStorage when notes is updated
+
   useEffect(() => {
     localStorage.setItem("notes", JSON.stringify(notes));
   }, [notes]);
@@ -107,6 +125,7 @@ function App() {
                         )
                       );
                     }}
+                    duplicateNote={(x) => duplicateNote(x)}
                     deleteNote={(noteId: string) => {
                       setNotes((prevNotes) =>
                         prevNotes.filter((n) => n.id !== noteId)
@@ -114,9 +133,9 @@ function App() {
                     }}
                     key={note.id}
                     workspaces={workspaces}
+                    updateNote={updateNote}
                   />
                 ))}
-              <TicTacToe></TicTacToe>
             </div>
           </main>
         </div>
