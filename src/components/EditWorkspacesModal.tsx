@@ -32,6 +32,7 @@ export default function EditWorkspacesModal({
               workspace={workspace}
               workspaces={workspaces}
               setWorkspaces={(x: Workspace[]) => setWorkspaces(x)}
+              key={index}
               index={index}
             />
           ))}

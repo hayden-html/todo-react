@@ -27,11 +27,21 @@ export default function EditWorkspaceChild({
     );
     setWorkspaces(updatedWorkspaces);
   }
+
+  // for testing the migration of workspace.name to workspace.id
+  function updateName(e) {
+    const updatedWorkspaces = [...workspaces];
+    updatedWorkspaces[index] = {
+      ...updatedWorkspaces[index],
+      name: e.target.value,
+    };
+
+    setWorkspaces(updatedWorkspaces);
+  }
   return (
     <li
       className="flex justify-between gap-4"
       style={{ color: workspace.color }}
-      key={index}
     >
       <div className="flex gap-2 items-center">
         <BsThreeDotsVertical className="cursor-pointer" />
@@ -40,7 +50,9 @@ export default function EditWorkspaceChild({
             className="modal__input"
             type="text"
             value={workspace.name}
+            id={workspace.id}
             style={{ borderColor: workspace.color }}
+            onChange={(e) => updateName(e)}
           />
         ) : (
           <p>{workspace.name}</p>
@@ -49,7 +61,7 @@ export default function EditWorkspaceChild({
       {isEditing ? (
         <div className="flex gap-4">
           <button
-            onClick={() => setIsEditing(true)}
+            onClick={() => setIsEditing(false)}
             className="modal__button text-black!"
             style={{ backgroundColor: workspace.color }}
           >

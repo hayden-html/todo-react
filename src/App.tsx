@@ -30,11 +30,11 @@ function App() {
     setNotes((prev) => [...prev, duplicateNote]);
   };
 
-  const updateNote = (updatedValue: string, noteId: string) => {
+  const updateNote = (workspaceId: string, noteId: string) => {
     console.log(noteId);
     setNotes((prev) =>
       prev.map((note) =>
-        note.id == noteId ? { ...note, workspaceName: updatedValue } : note
+        note.id == noteId ? { ...note, workspaceId: workspaceId } : note
       )
     );
   };
@@ -50,8 +50,8 @@ function App() {
   const [workspaces, setWorkspaces] = useState<Workspace[]>(() => {
     const defaultWorkspace: Workspace[] = [
       {
-        id: "1",
-        name: "default",
+        id: crypto.randomUUID(),
+        name: "My First Workspace",
         color: "rgb(250 204 21)",
         icon: "home",
       },
@@ -69,7 +69,7 @@ function App() {
   }, [workspaces]);
 
   const [selectedWorkspace, setSelectedWorkspace] = useState(
-    workspaces.length > 1 ? "all" : workspaces[0].name
+    workspaces.length > 1 ? "all" : workspaces[0].id
   );
 
   return (
@@ -91,11 +91,16 @@ function App() {
                 selectedWorkspace === "all"
                   ? "var(--all-color)"
                   : workspaces.find(
-                      (workspace) => workspace.name === selectedWorkspace
+                      (workspace) => workspace.id === selectedWorkspace
                     )?.color,
             }}
           >
-            To Do List
+            To Do List{" "}
+            {
+              workspaces.find(
+                (workspaces) => selectedWorkspace == workspaces.id
+              )?.name
+            }
           </header>
           <main>
             <div className="mb-6">
@@ -110,10 +115,10 @@ function App() {
                 .filter(
                   (note) =>
                     selectedWorkspace === "all" ||
-                    note.workspaceName ===
+                    note.workspaceId ===
                       workspaces.find(
-                        (workspace) => workspace.name == selectedWorkspace
-                      )?.name
+                        (workspace) => workspace.id == selectedWorkspace
+                      )?.id
                 )
                 .map((note: Note) => (
                   <NoteItem

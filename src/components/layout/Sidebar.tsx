@@ -29,13 +29,18 @@ export default function Sidebar({
   setSelectedWorkspace: (x: string) => void;
 }) {
   const selectedWorkspaceData = workspaces.find(
-    (workspace) => workspace.name == selectedWorkspace
+    (workspace) => workspace.id == selectedWorkspace
   );
 
   return (
     <nav
-      className="p-4 border-r-2 grid grid-cols-1 items-center max-h-screen"
-      style={{ borderColor: selectedWorkspaceData?.color }}
+      className="p-4 border-r-2 grid grid-cols-1 items-center max-h-screen min-w-fit"
+      style={{
+        borderColor:
+          selectedWorkspace == "all"
+            ? "var(--all-color)"
+            : selectedWorkspaceData?.color,
+      }}
     >
       <div className="flex flex-col gap-4">
         <fieldset
@@ -44,7 +49,6 @@ export default function Sidebar({
         >
           {workspaces.length > 1 && (
             <label
-              htmlFor="all"
               className={`workspace__option`}
               style={{
                 borderColor: "var(--all-color)",
@@ -58,7 +62,7 @@ export default function Sidebar({
                 value="all"
                 name="workspace"
                 id="all"
-                checked={selectedWorkspaceData?.name === "all"}
+                checked={selectedWorkspace === "all"}
                 onChange={() => setSelectedWorkspace("all")}
               ></input>
               All
@@ -71,11 +75,11 @@ export default function Sidebar({
             const IconComponent = iconData?.component;
             return (
               <label
-                htmlFor={workspace.name}
                 className={`workspace__option`}
+                htmlFor={"workspace-options-" + workspace.id}
                 style={{
                   borderColor: workspace.color,
-                  ...(selectedWorkspaceData?.name === workspace.name
+                  ...(selectedWorkspace == workspace.id
                     ? { backgroundColor: workspace.color, color: "rgb(0 0 0)" }
                     : { color: workspace.color }),
                 }}
@@ -93,11 +97,11 @@ export default function Sidebar({
                 )}
                 <input
                   type="radio"
-                  value={workspace.name}
+                  id={"workspace-options-" + workspace.id}
+                  value={workspace.id}
                   className=""
-                  id={workspace.name}
                   name="workspace"
-                  checked={selectedWorkspaceData?.name === workspace.name}
+                  checked={selectedWorkspace === workspace.id}
                   onChange={(e) => setSelectedWorkspace(e.target.value)}
                 ></input>
               </label>
@@ -112,7 +116,7 @@ export default function Sidebar({
               selectedWorkspace === "all"
                 ? "var(--all-color)"
                 : workspaces.find(
-                    (workspace) => workspace.name === selectedWorkspace
+                    (workspace) => workspace.id === selectedWorkspace
                   )?.color,
           }}
         >
@@ -126,7 +130,7 @@ export default function Sidebar({
               selectedWorkspace === "all"
                 ? "var(--all-color)"
                 : workspaces.find(
-                    (workspace) => workspace.name === selectedWorkspace
+                    (workspace) => workspace.id === selectedWorkspace
                   )?.color,
           }}
         >

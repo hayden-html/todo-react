@@ -65,7 +65,7 @@ export default function Note({
 
   // const updateNoteWorkspace = (newWorkspaceId) => {
   //   const currentNotes = note
-  //   setNote((prev) => [...prev, workspaceName: newWorkspaceId])
+  //   setNote((prev) => [...prev, workspaceId: newWorkspaceId])
   // };
 
   return (
@@ -76,7 +76,7 @@ export default function Note({
           width: note.width || defaultWidth,
           height: note.height || defaultHeight,
           borderColor: workspaces.find(
-            (workspace) => note.workspaceName === workspace.name
+            (workspace) => note.workspaceId === workspace.id
           )?.color,
         }}
       >
@@ -114,12 +114,12 @@ export default function Note({
                       return (
                         <button
                           className="note-menu-link flex gap-3 items-center"
-                          onClick={() => updateNote(workspace.name, note.id)}
+                          onClick={() => updateNote(workspace.id, note.id)}
                           style={
                             {
                               // color: workspace.color,
                               // backgroundColor:
-                              //   workspace.name == note.workspaceName
+                              //   workspace.id == note.workspaceId
                               //     ? "var(--color-neutral-600)"
                               //     : "var(--color-neutral-700)",
                             }
@@ -134,7 +134,7 @@ export default function Note({
                           />
                           <span>
                             {workspace.name}{" "}
-                            {workspace.name == note.workspaceName
+                            {workspace.id == note.workspaceId
                               ? "(current)"
                               : ""}
                           </span>

@@ -13,9 +13,7 @@ interface Props {
 function AddNoteForm({ setNotes, selectedWorkspace, workspaces }: Props) {
   const [note, setNote] = useState({
     body: "",
-    workspaceName:
-      // if all, the workspace need to be set by the fieldset
-      selectedWorkspace === "all" ? workspaces[0].name : selectedWorkspace,
+    workspaceId: workspaces[0].id,
   });
 
   function createNote(e: ChangeEvent<HTMLFormElement>) {
@@ -30,7 +28,7 @@ function AddNoteForm({ setNotes, selectedWorkspace, workspaces }: Props) {
       id: crypto.randomUUID(),
       noteBody: note.body,
       createdAt: new Date().toISOString(),
-      workspaceName: note.workspaceName,
+      workspaceId: note.workspaceId,
       height: "4rem",
       width: "4rem",
     };
@@ -40,8 +38,7 @@ function AddNoteForm({ setNotes, selectedWorkspace, workspaces }: Props) {
     //
     setNote({
       body: "",
-      workspaceName:
-        selectedWorkspace === "all" ? workspaces[0].name : selectedWorkspace,
+      workspaceId: note.workspaceId,
     });
   }
 
@@ -51,8 +48,8 @@ function AddNoteForm({ setNotes, selectedWorkspace, workspaces }: Props) {
 
   const currentColor = workspaces.find((workspace) =>
     selectedWorkspace == "all"
-      ? workspace.name === note.workspaceName
-      : workspace.name === selectedWorkspace
+      ? workspace.id === note.workspaceId
+      : workspace.id === selectedWorkspace
   )?.color;
 
   return (
@@ -85,12 +82,12 @@ function AddNoteForm({ setNotes, selectedWorkspace, workspaces }: Props) {
               const IconComponent: IconType = iconData?.component;
               return (
                 <label
-                  htmlFor={workspace.id}
+                  htmlFor={"note-workspace-" + workspace.id}
                   className={`p-2 rounded-4xl border-2 `}
                   style={{
                     backgroundColor: workspace.color,
                     borderColor:
-                      workspace.name === note.workspaceName
+                      workspace.id === note.workspaceId
                         ? "white"
                         : workspace.color,
                   }}
@@ -99,13 +96,13 @@ function AddNoteForm({ setNotes, selectedWorkspace, workspaces }: Props) {
                   <IconComponent style={{ fontSize: iconData?.size }} />
                   <input
                     className="hidden-input"
-                    id={workspace.id}
-                    value={workspace.name}
-                    checked={note.workspaceName === workspace.name}
+                    id={"note-workspace-" + workspace.id}
+                    value={workspace.id}
+                    checked={note.workspaceId === workspace.id}
                     onChange={(e) =>
                       setNote((prev) => ({
                         ...prev,
-                        workspaceName: e.target.value,
+                        workspaceId: e.target.value,
                       }))
                     }
                     type="radio"

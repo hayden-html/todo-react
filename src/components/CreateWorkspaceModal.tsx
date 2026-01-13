@@ -24,7 +24,7 @@ export default function CreateWorkspaceModal({
   setSelectedWorkspace: (x: string) => void;
 }) {
   const [newWorkspace, setNewWorkspace] = useState<Workspace>({
-    id: "",
+    id: crypto.randomUUID(),
     name: "",
     color: "rgb(250, 204, 21)",
     icon: "home",
@@ -33,10 +33,9 @@ export default function CreateWorkspaceModal({
     e.preventDefault();
     const workspace: Workspace = {
       ...newWorkspace,
-      id: crypto.randomUUID(),
     };
     setWorkspaces((prev: Workspace[]) => [...prev, workspace]);
-    setSelectedWorkspace(newWorkspace.name);
+    setSelectedWorkspace(newWorkspace.id);
     setIsNewWorkspaceModal(false);
   };
 
