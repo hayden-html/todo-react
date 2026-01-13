@@ -95,12 +95,7 @@ function App() {
                     )?.color,
             }}
           >
-            To Do List{" "}
-            {
-              workspaces.find(
-                (workspaces) => selectedWorkspace == workspaces.id
-              )?.name
-            }
+            To Do List
           </header>
           <main>
             <div className="mb-6">
