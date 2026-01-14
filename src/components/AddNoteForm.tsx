@@ -31,6 +31,7 @@ function AddNoteForm({ setNotes, selectedWorkspace, workspaces }: Props) {
       noteBody: note.body,
       createdAt: new Date().toISOString(),
       workspaceId:
+        // think this is wrong
         selectedWorkspace == "all" ? note.workspaceId : selectedWorkspace,
       height: "4rem",
       width: "4rem",
@@ -84,6 +85,7 @@ function AddNoteForm({ setNotes, selectedWorkspace, workspaces }: Props) {
                 workspaceIcons.find((icon) => icon.id === workspace.icon) ||
                 workspaceIcons[0];
               const IconComponent: IconType = iconData?.component;
+
               return (
                 <label
                   htmlFor={"note-workspace-" + workspace.id}

@@ -22,7 +22,7 @@ export default function EditWorkspacesModal({
       (workspace) => workspaceId !== workspace.id
     );
     if (workspaceId == selectedWorkspace) {
-      setSelectedWorkspace(workspaces.length === 0 ? "all" : workspaces[0].id);
+      setSelectedWorkspace(workspaces.length > 0 ? workspaces[0].id : "all");
     }
     setWorkspaces(updatedWorkspaces);
   }
