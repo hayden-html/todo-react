@@ -28,7 +28,8 @@ function AddNoteForm({ setNotes, selectedWorkspace, workspaces }: Props) {
       id: crypto.randomUUID(),
       noteBody: note.body,
       createdAt: new Date().toISOString(),
-      workspaceId: note.workspaceId,
+      workspaceId:
+        selectedWorkspace == "all" ? note.workspaceId : selectedWorkspace,
       height: "4rem",
       width: "4rem",
     };
@@ -38,7 +39,8 @@ function AddNoteForm({ setNotes, selectedWorkspace, workspaces }: Props) {
     //
     setNote({
       body: "",
-      workspaceId: note.workspaceId,
+      workspaceId:
+        selectedWorkspace == "all" ? note.workspaceId : selectedWorkspace,
     });
   }
 

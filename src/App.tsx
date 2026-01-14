@@ -154,6 +154,8 @@ function App() {
           setIsEditWorkspaceModal={setIsEditWorkspaceModal}
           workspaces={workspaces}
           setWorkspaces={setWorkspaces}
+          selectedWorkspace={selectedWorkspace}
+          setSelectedWorkspace={setSelectedWorkspace}
         />
       )}
     </>

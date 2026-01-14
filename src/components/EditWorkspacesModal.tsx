@@ -6,11 +6,27 @@ export default function EditWorkspacesModal({
   setIsEditWorkspaceModal,
   workspaces,
   setWorkspaces,
+  selectedWorkspace,
+  setSelectedWorkspace,
 }: {
   setIsEditWorkspaceModal: (x: boolean) => void;
   workspaces: Workspace[];
   setWorkspaces: (x: Workspace[]) => void;
+  selectedWorkspace: string;
+  setSelectedWorkspace: (x: string) => void;
 }) {
+  function deleteWorkspace(workspaceId: string) {
+    const updatedWorkspaces = workspaces.filter(
+      (workspace) => workspaceId !== workspace.id
+    );
+    if (workspaceId == selectedWorkspace) {
+      setSelectedWorkspace("all");
+    }
+    setWorkspaces(updatedWorkspaces);
+  }
+
+  // for testing the migration of workspace.name to workspace.id
+
   return (
     <div className="modal-background">
       <div className="dashboard__modal text-white">
@@ -32,8 +48,9 @@ export default function EditWorkspacesModal({
               workspace={workspace}
               workspaces={workspaces}
               setWorkspaces={(x: Workspace[]) => setWorkspaces(x)}
-              key={index}
+              key={workspace.id}
               index={index}
+              deleteWorkspace={deleteWorkspace}
             />
           ))}
         </ul>

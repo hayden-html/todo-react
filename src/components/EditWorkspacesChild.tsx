@@ -13,22 +13,16 @@ export default function EditWorkspaceChild({
   workspaces,
   setWorkspaces,
   index,
+  deleteWorkspace,
 }: {
   workspace: Workspace;
   workspaces: Workspace[];
   setWorkspaces: (x: Workspace[]) => void;
   index: number;
+  deleteWorkspace: (x: string) => void;
 }) {
   const [isEditing, setIsEditing] = useState(false);
 
-  function deleteWorkspace(workspaceId: string) {
-    const updatedWorkspaces = workspaces.filter(
-      (workspace) => workspaceId !== workspace.id
-    );
-    setWorkspaces(updatedWorkspaces);
-  }
-
-  // for testing the migration of workspace.name to workspace.id
   function updateName(e) {
     const updatedWorkspaces = [...workspaces];
     updatedWorkspaces[index] = {
@@ -38,10 +32,12 @@ export default function EditWorkspaceChild({
 
     setWorkspaces(updatedWorkspaces);
   }
+
   return (
     <li
       className="flex justify-between gap-4"
       style={{ color: workspace.color }}
+      id={`${index}`}
     >
       <div className="flex gap-2 items-center">
         <BsThreeDotsVertical className="cursor-pointer" />
