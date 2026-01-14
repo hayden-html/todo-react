@@ -10,28 +10,16 @@ import type { Workspace } from "../types";
 
 export default function EditWorkspaceChild({
   workspace,
-  workspaces,
-  setWorkspaces,
   index,
   deleteWorkspace,
+  updateName,
 }: {
   workspace: Workspace;
-  workspaces: Workspace[];
-  setWorkspaces: (x: Workspace[]) => void;
   index: number;
   deleteWorkspace: (x: string) => void;
+  updateName: (workspaceId: string, value: string) => void;
 }) {
   const [isEditing, setIsEditing] = useState(false);
-
-  function updateName(e) {
-    const updatedWorkspaces = [...workspaces];
-    updatedWorkspaces[index] = {
-      ...updatedWorkspaces[index],
-      name: e.target.value,
-    };
-
-    setWorkspaces(updatedWorkspaces);
-  }
 
   return (
     <li
@@ -48,7 +36,7 @@ export default function EditWorkspaceChild({
             value={workspace.name}
             id={workspace.id}
             style={{ borderColor: workspace.color }}
-            onChange={(e) => updateName(e)}
+            onChange={(e) => updateName(workspace.id, e.target.value)}
           />
         ) : (
           <p>{workspace.name}</p>

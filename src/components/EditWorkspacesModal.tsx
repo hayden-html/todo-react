@@ -22,11 +22,17 @@ export default function EditWorkspacesModal({
       (workspace) => workspaceId !== workspace.id
     );
     if (workspaceId == selectedWorkspace) {
-      setSelectedWorkspace(workspaces.length < 0 ? "all" : workspaces[0].id);
+      setSelectedWorkspace(workspaces.length === 0 ? "all" : workspaces[0].id);
     }
     setWorkspaces(updatedWorkspaces);
   }
 
+  function updateName(workspaceId: string, value: string) {
+    const newWorkspace = workspaces.map((x: Workspace) =>
+      x.id == workspaceId ? { ...x, name: value } : x
+    );
+    setWorkspaces(newWorkspace);
+  }
   return (
     <div className="modal-background">
       <div className="dashboard__modal text-white">
@@ -46,11 +52,10 @@ export default function EditWorkspacesModal({
           {workspaces.map((workspace, index) => (
             <EditWorkspacesChild
               workspace={workspace}
-              workspaces={workspaces}
-              setWorkspaces={(x: Workspace[]) => setWorkspaces(x)}
               key={workspace.id}
               index={index}
               deleteWorkspace={deleteWorkspace}
+              updateName={updateName}
             />
           ))}
         </ul>

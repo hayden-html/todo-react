@@ -1,3 +1,5 @@
+// Todo - ensure that the workspace fieldselect defaults to the first workspace, when deleting workspace that is currently selected, the note.workspaceId is not updated
+
 import { useState, type ChangeEvent } from "react";
 import type { Note, Workspace } from "../types";
 import "../styles/notes.scss";
