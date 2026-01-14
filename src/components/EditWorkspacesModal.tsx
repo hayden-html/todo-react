@@ -1,3 +1,5 @@
+// Todo - deleting a workspace should also delete the notes that correspond to it
+
 import { BsX } from "react-icons/bs";
 import type { Workspace } from "../types";
 import EditWorkspacesChild from "./EditWorkspacesChild";
@@ -20,12 +22,10 @@ export default function EditWorkspacesModal({
       (workspace) => workspaceId !== workspace.id
     );
     if (workspaceId == selectedWorkspace) {
-      setSelectedWorkspace("all");
+      setSelectedWorkspace(workspaces.length < 0 ? "all" : workspaces[0].id);
     }
     setWorkspaces(updatedWorkspaces);
   }
-
-  // for testing the migration of workspace.name to workspace.id
 
   return (
     <div className="modal-background">
