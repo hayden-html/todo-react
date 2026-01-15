@@ -10,11 +10,13 @@ import type { Workspace } from "../types";
 
 export default function EditWorkspaceChild({
   workspace,
+  workspaces,
   index,
   deleteWorkspace,
   updateName,
 }: {
   workspace: Workspace;
+  workspaces: Workspace[];
   index: number;
   deleteWorkspace: (x: string) => void;
   updateName: (workspaceId: string, value: string) => void;
@@ -51,13 +53,15 @@ export default function EditWorkspaceChild({
           >
             <BsFloppy2Fill />
           </button>
-          <button
-            onClick={() => deleteWorkspace(workspace.id)}
-            className="modal__button text-black!"
-            style={{ backgroundColor: workspace.color }}
-          >
-            <BsTrash3Fill />
-          </button>
+          {workspaces.length > 1 && (
+            <button
+              onClick={() => deleteWorkspace(workspace.id)}
+              className="modal__button text-black!"
+              style={{ backgroundColor: workspace.color }}
+            >
+              <BsTrash3Fill />
+            </button>
+          )}
         </div>
       ) : (
         <button

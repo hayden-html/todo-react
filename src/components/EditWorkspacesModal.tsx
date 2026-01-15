@@ -52,6 +52,7 @@ export default function EditWorkspacesModal({
           {workspaces.map((workspace, index) => (
             <EditWorkspacesChild
               workspace={workspace}
+              workspaces={workspaces}
               key={workspace.id}
               index={index}
               deleteWorkspace={deleteWorkspace}
