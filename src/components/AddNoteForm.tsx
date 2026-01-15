@@ -18,6 +18,13 @@ function AddNoteForm({ setNotes, selectedWorkspace, workspaces }: Props) {
     workspaceId: workspaces[0].id,
   });
 
+  const isWorkspaceAvailable = workspaces.some(
+    (workspace) => workspace.id == note.workspaceId
+  );
+  if (!isWorkspaceAvailable) {
+    setNote((prev) => ({ ...prev, workspaceId: workspaces[0].id }));
+  }
+
   function createNote(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
 
