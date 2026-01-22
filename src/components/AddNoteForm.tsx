@@ -14,12 +14,13 @@ interface Props {
 
 function AddNoteForm({ setNotes, selectedWorkspace, workspaces }: Props) {
   const [note, setNote] = useState({
+    title: "",
     body: "",
     workspaceId: workspaces[0].id,
   });
 
   const isWorkspaceAvailable = workspaces.some(
-    (workspace) => workspace.id == note.workspaceId
+    (workspace) => workspace.id == note.workspaceId,
   );
   if (!isWorkspaceAvailable) {
     setNote((prev) => ({ ...prev, workspaceId: workspaces[0].id }));
@@ -35,6 +36,7 @@ function AddNoteForm({ setNotes, selectedWorkspace, workspaces }: Props) {
 
     const newNote: Note = {
       id: crypto.randomUUID(),
+      noteTitle: note.title,
       noteBody: note.body,
       createdAt: new Date().toISOString(),
       workspaceId:
@@ -48,6 +50,7 @@ function AddNoteForm({ setNotes, selectedWorkspace, workspaces }: Props) {
     setNotes(updatedNotes);
     //
     setNote({
+      title: "",
       body: "",
       workspaceId:
         selectedWorkspace == "all" ? note.workspaceId : selectedWorkspace,
@@ -61,7 +64,7 @@ function AddNoteForm({ setNotes, selectedWorkspace, workspaces }: Props) {
   const currentColor = workspaces.find((workspace) =>
     selectedWorkspace == "all"
       ? workspace.id === note.workspaceId
-      : workspace.id === selectedWorkspace
+      : workspace.id === selectedWorkspace,
   )?.color;
 
   return (

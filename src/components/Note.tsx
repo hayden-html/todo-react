@@ -31,8 +31,11 @@ export default function Note({
 
   updateNote: (notes: string, noteId: string) => void;
 }) {
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const updatedNote = { ...note, noteBody: e.target.value };
+  const handleChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+  ) => {
+    const { name, value } = e.target;
+    const updatedNote = { ...note, [name]: value };
     onUpdateNote(updatedNote);
   };
 
@@ -76,10 +79,16 @@ export default function Note({
           width: note.width || defaultWidth,
           height: note.height || defaultHeight,
           borderColor: workspaces.find(
-            (workspace) => note.workspaceId === workspace.id
+            (workspace) => note.workspaceId === workspace.id,
           )?.color,
         }}
       >
+        <input
+          type="text"
+          name="noteTitle"
+          onChange={handleChange}
+          value={note.noteTitle}
+        ></input>
         <textarea
           name="noteBody"
           id=""
@@ -108,7 +117,7 @@ export default function Note({
                   <div className="flex flex-col bg-neutral-700 overflow-hidden rounded-lg">
                     {workspaces.map((workspace, index) => {
                       const icons = workspaceIcons.find(
-                        (x) => workspace.icon == x.id
+                        (x) => workspace.icon == x.id,
                       );
                       const WorkspaceIcon = icons?.component;
                       return (

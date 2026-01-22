@@ -62,7 +62,7 @@ export default function CreateWorkspaceModal({
 
           <button
             onClick={() => setIsNewWorkspaceModal(false)}
-            className="text-2xl"
+            className="text-2xl -mt-3 -mr-1 cursor-pointer"
             style={{ color: newWorkspace.color }}
           >
             <BsX className="text-[2.5rem]"></BsX>
@@ -110,9 +110,9 @@ export default function CreateWorkspaceModal({
                   {workspaceColors.map((color, index) => (
                     <label
                       key={index}
-                      className={`h-6 w-6 rounded-2xl ${
+                      className={`h-6 w-6 rounded-2xl cursor-pointer ${
                         newWorkspace.color === color.colorCode
-                          ? "active border-2 border-white"
+                          ? "active border-2 border-white "
                           : ""
                       }`}
                       style={{ backgroundColor: color.colorCode }}

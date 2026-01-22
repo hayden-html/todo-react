@@ -1,8 +1,36 @@
 @import "tailwindcss";
 
-/* @theme inline {
+@theme inline {
   --color-primary: var(--color-neutral-900);
-} */
+
+  --yellow: var(--color-yellow-400);
+  --yellow-dark: var(--color-yellow-600);
+  --yellow-darkest: var(--color-yellow-800);
+
+  --green: var(--color-green-400);
+  --green-dark: var(--color-green-600);
+  --green-darkest: var(--color-green-800);
+
+  --blue: var(--color-blue-400);
+  --blue-dark: var(--color-blue-600);
+  --blue-darkest: var(--color-blue-800);
+
+  --purple: var(--color-purple-400);
+  --purple-dark: var(--color-purple-600);
+  --purple-darkest: var(--color-purple-800);
+
+  --pink: var(--color-pink-400);
+  --pink-dark: var(--color-pink-600);
+  --pink-darkest: var(--color-pink-800);
+
+  --red: var(--color-red-400);
+  --red-dark: var(--color-red-600);
+  --red-darkest: var(--color-red-800);
+
+  --orange: var(--color-orange-400);
+  --orange-dark: var(--color-orange-600);
+  --orange-darkest: var(--color-orange-800);
+}
 
 :root {
   --all-color: white;

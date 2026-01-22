@@ -4,11 +4,13 @@ import AddNoteForm from "./components/AddNoteForm";
 import NoteItem from "./components/Note.tsx";
 import type { Note, Workspace } from "./types.ts";
 import "./styles/notes.scss";
+import "./styles/workspaces.scss";
 import Sidebar from "./components/layout/Sidebar.tsx";
 import CreateWorkspaceModal from "./components/CreateWorkspaceModal.tsx";
 // import Timer from "./components/Timer.tsx";
 // import TicTacToe from "./components/TicTacToe.tsx";
 import EditWorkspacesModal from "./components/EditWorkspacesModal.tsx";
+import NewNoteModal from "./components/NewNoteModal.tsx";
 
 function App() {
   // Set notes from localStorage data on render
@@ -34,8 +36,8 @@ function App() {
     console.log(noteId);
     setNotes((prev) =>
       prev.map((note) =>
-        note.id == noteId ? { ...note, workspaceId: workspaceId } : note
-      )
+        note.id == noteId ? { ...note, workspaceId: workspaceId } : note,
+      ),
     );
   };
   // Update localStorage when notes is updated
@@ -69,7 +71,7 @@ function App() {
   }, [workspaces]);
 
   const [selectedWorkspace, setSelectedWorkspace] = useState(
-    workspaces.length > 1 ? "all" : workspaces[0].id
+    workspaces.length > 1 ? "all" : workspaces[0].id,
   );
 
   return (
@@ -91,7 +93,7 @@ function App() {
                 selectedWorkspace === "all"
                   ? "var(--all-color)"
                   : workspaces.find(
-                      (workspace) => workspace.id === selectedWorkspace
+                      (workspace) => workspace.id === selectedWorkspace,
                     )?.color,
             }}
           >
@@ -105,6 +107,12 @@ function App() {
                 workspaces={workspaces}
               />
             </div>
+            <NewNoteModal
+              notes={notes}
+              setNotes={setNotes}
+              selectedWorkspace={selectedWorkspace}
+              workspaces={workspaces}
+            />
             <div className="flex gap-3">
               {notes
                 .filter(
@@ -112,8 +120,8 @@ function App() {
                     selectedWorkspace === "all" ||
                     note.workspaceId ===
                       workspaces.find(
-                        (workspace) => workspace.id == selectedWorkspace
-                      )?.id
+                        (workspace) => workspace.id == selectedWorkspace,
+                      )?.id,
                 )
                 .map((note: Note) => (
                   <NoteItem
@@ -121,14 +129,14 @@ function App() {
                     onUpdateNote={(updateNote: Note) => {
                       setNotes((prevNotes) =>
                         prevNotes.map((n) =>
-                          n.id === note.id ? updateNote : n
-                        )
+                          n.id === note.id ? updateNote : n,
+                        ),
                       );
                     }}
                     duplicateNote={(x) => duplicateNote(x)}
                     deleteNote={(noteId: string) => {
                       setNotes((prevNotes) =>
-                        prevNotes.filter((n) => n.id !== noteId)
+                        prevNotes.filter((n) => n.id !== noteId),
                       );
                     }}
                     key={note.id}
