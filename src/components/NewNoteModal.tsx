@@ -6,7 +6,7 @@ import {
   BiSolidCheckboxChecked,
 } from "react-icons/bi";
 import type { Note, Workspace } from "../types";
-import { useState, type ChangeEvent } from "react";
+import { useState, type ChangeEvent, type FormEvent } from "react";
 
 import {
   MdAudiotrack,
@@ -20,6 +20,7 @@ import {
 import { BsCheckSquare, BsSticky, BsX } from "react-icons/bs";
 import { workspaceIcons } from "../utils/iconLibrary";
 import type { IconType } from "react-icons";
+import UnsavedNoteWarningModal from "./UnsavedNoteWarningModal";
 
 export default function NewNoteModal({
   notes,
@@ -33,6 +34,7 @@ export default function NewNoteModal({
   workspaces: Workspace[];
 }) {
   const [newNoteModal, setNewNoteModal] = useState(false);
+  const [unsavedWarning, setUnsavedWarning] = useState(false);
 
   const emptyNote = {
     id: crypto.randomUUID(),
@@ -54,8 +56,8 @@ export default function NewNoteModal({
     setNewNote((prev) => ({ ...prev, body: e.target.value }));
   }
 
-  function saveNotes(e: ChangeEvent<HTMLFormElement>) {
-    e.preventDefault();
+  function saveNotes(e?: FormEvent<HTMLFormElement>) {
+    e?.preventDefault();
     const existingNotes = notes || [];
     const updatedNotes = [...existingNotes, newNote];
     console.log(updatedNotes);
@@ -63,6 +65,20 @@ export default function NewNoteModal({
     setNotes(updatedNotes);
     setNewNote(emptyNote);
     setNewNoteModal(false);
+  }
+
+  function exitModal() {
+    if (
+      emptyNote.title !== "" ||
+      emptyNote.body !== "" ||
+      unsavedWarning == false
+    ) {
+      console.log("unsaved");
+
+      setUnsavedWarning(true);
+    } else {
+      setNewNoteModal(false);
+    }
   }
 
   return (
@@ -94,8 +110,11 @@ export default function NewNoteModal({
         </button>
       </div>
       {newNoteModal && (
-        <div className="modal-background">
-          <div className="flex left-0 right-0 absolute  justify-center">
+        <div className="modal-background" onClick={() => exitModal()}>
+          <div
+            className="flex left-0 right-0 absolute  justify-center"
+            onClick={(e) => e.stopPropagation()}
+          >
             <fieldset className="workspace-select px-3 flex flex-col gap-3">
               {workspaces.map((workspace, index) => {
                 const iconData =
@@ -161,10 +180,10 @@ export default function NewNoteModal({
                   value={newNote.body}
                   onChange={updatebody}
                 />
-                <div className="mt-auto flex justify-end">
+                <div className="mt-auto flex justify-end gap-4">
                   <button
                     type="submit"
-                    className="m-2 p-2 px-4 rounded-xl text-neutral-800 font-semibold text-lg"
+                    className="button"
                     style={{
                       backgroundColor: workspaces.find(
                         (x) => x.id === newNote.workspace,
@@ -174,12 +193,15 @@ export default function NewNoteModal({
                     Save Note
                   </button>
                   <button
-                    className="m-2 p-2 px-4 rounded-xl text-neutral-800 font-semibold text-lg border-2"
+                    className="button border-2"
                     style={{
                       color: workspaces.find((x) => x.id === newNote.workspace)
                         ?.color,
                     }}
-                    onClick={() => setNewNoteModal(false)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setUnsavedWarning(true);
+                    }}
                   >
                     Close
                   </button>
@@ -188,6 +210,20 @@ export default function NewNoteModal({
             </div>
           </div>
         </div>
+      )}
+
+      {unsavedWarning && (
+        <UnsavedNoteWarningModal
+          onSave={() => {
+            saveNotes();
+            setUnsavedWarning(false);
+          }}
+          onDiscard={() => {
+            setUnsavedWarning(false);
+            setNewNoteModal(false);
+          }}
+          onCancel={() => setUnsavedWarning(false)}
+        />
       )}
     </>
   );
