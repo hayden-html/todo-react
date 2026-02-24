@@ -1,3 +1,4 @@
+"use client";
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import "../../styles/layout.scss";
 import type { Workspace } from "../../types";
@@ -29,7 +30,7 @@ export default function Sidebar({
   setSelectedWorkspace: (x: string) => void;
 }) {
   const selectedWorkspaceData = workspaces.find(
-    (workspace) => workspace.id == selectedWorkspace
+    (workspace) => workspace.id == selectedWorkspace,
   );
 
   return (
@@ -70,7 +71,7 @@ export default function Sidebar({
           )}
           {workspaces.map((workspace: Workspace, index: number) => {
             const iconData = workspaceIcons.find(
-              (icon) => icon.id === workspace.icon
+              (icon) => icon.id === workspace.icon,
             );
             const IconComponent = iconData?.component;
             return (
@@ -90,7 +91,7 @@ export default function Sidebar({
                     className="mx-auto"
                     style={{
                       fontSize: workspaceIcons.find(
-                        (icon) => icon.id === workspace.icon
+                        (icon) => icon.id === workspace.icon,
                       )?.size,
                     }}
                   />
@@ -116,7 +117,7 @@ export default function Sidebar({
               selectedWorkspace === "all"
                 ? "var(--all-color)"
                 : workspaces.find(
-                    (workspace) => workspace.id === selectedWorkspace
+                    (workspace) => workspace.id === selectedWorkspace,
                   )?.color,
           }}
         >
@@ -130,7 +131,7 @@ export default function Sidebar({
               selectedWorkspace === "all"
                 ? "var(--all-color)"
                 : workspaces.find(
-                    (workspace) => workspace.id === selectedWorkspace
+                    (workspace) => workspace.id === selectedWorkspace,
                   )?.color,
           }}
         >

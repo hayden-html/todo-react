@@ -1,18 +1,20 @@
-import { useEffect, useState } from "react";
-import "./App.css";
-import AddNoteForm from "./components/AddNoteForm";
-import NoteItem from "./components/Note.tsx";
-import type { Note, Workspace } from "./types.ts";
-import "./styles/notes.scss";
-import "./styles/workspaces.scss";
-import "./styles/buttons.scss";
+"use client";
 
-import Sidebar from "./components/layout/Sidebar.tsx";
-import CreateWorkspaceModal from "./components/CreateWorkspaceModal.tsx";
+import { useEffect, useState } from "react";
+import "../App.css";
+import AddNoteForm from "../components/AddNoteForm";
+import NoteItem from "../components/Note";
+import type { Note, Workspace } from "../types.ts";
+import "../styles/notes.scss";
+import "../styles/workspaces.scss";
+import "../styles/buttons.scss";
+
+import Sidebar from "../components/layout/Sidebar";
+import CreateWorkspaceModal from "../components/CreateWorkspaceModal";
 // import Timer from "./components/Timer.tsx";
 // import TicTacToe from "./components/TicTacToe.tsx";
-import EditWorkspacesModal from "./components/EditWorkspacesModal.tsx";
-import NewNoteModal from "./components/NewNoteModal.tsx";
+import EditWorkspacesModal from "../components/EditWorkspacesModal";
+import NewNoteModal from "../components/NewNoteModal";
 
 function App() {
   // Set notes from localStorage data on render

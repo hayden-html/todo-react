@@ -88,7 +88,7 @@ export default function Note({
           name="title"
           onChange={handleChange}
           value={note.title}
-          className="note__textarea"
+          className="note__title"
         ></input>
         <textarea
           name="body"
