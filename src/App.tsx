@@ -5,6 +5,8 @@ import NoteItem from "./components/Note.tsx";
 import type { Note, Workspace } from "./types.ts";
 import "./styles/notes.scss";
 import "./styles/workspaces.scss";
+import "./styles/buttons.scss";
+
 import Sidebar from "./components/layout/Sidebar.tsx";
 import CreateWorkspaceModal from "./components/CreateWorkspaceModal.tsx";
 // import Timer from "./components/Timer.tsx";
