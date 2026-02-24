@@ -1,9 +1,9 @@
 export type Note = {
   id: string;
   createdAt: string;
-  noteTitle: string;
-  noteBody: string;
-  workspaceId: string;
+  title: string;
+  body: string;
+  workspace: string;
   height: string;
   width: string;
 };

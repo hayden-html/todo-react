@@ -66,9 +66,9 @@ export default function Note({
   const defaultHeight = "200px";
   const defaultWidth = "200px";
 
-  // const updateNoteWorkspace = (newWorkspaceId) => {
+  // const updateNoteWorkspace = (newworkspace) => {
   //   const currentNotes = note
-  //   setNote((prev) => [...prev, workspaceId: newWorkspaceId])
+  //   setNote((prev) => [...prev, workspace: newworkspace])
   // };
 
   return (
@@ -79,21 +79,22 @@ export default function Note({
           width: note.width || defaultWidth,
           height: note.height || defaultHeight,
           borderColor: workspaces.find(
-            (workspace) => note.workspaceId === workspace.id,
+            (workspace) => note.workspace === workspace.id,
           )?.color,
         }}
       >
         <input
           type="text"
-          name="noteTitle"
+          name="title"
           onChange={handleChange}
-          value={note.noteTitle}
+          value={note.title}
+          className="note__textarea"
         ></input>
         <textarea
-          name="noteBody"
+          name="body"
           id=""
           onChange={handleChange}
-          value={note.noteBody}
+          value={note.body}
           className="note__textarea"
         ></textarea>
       </div>
@@ -128,7 +129,7 @@ export default function Note({
                             {
                               // color: workspace.color,
                               // backgroundColor:
-                              //   workspace.id == note.workspaceId
+                              //   workspace.id == note.workspace
                               //     ? "var(--color-neutral-600)"
                               //     : "var(--color-neutral-700)",
                             }
@@ -143,9 +144,7 @@ export default function Note({
                           />
                           <span>
                             {workspace.name}{" "}
-                            {workspace.id == note.workspaceId
-                              ? "(current)"
-                              : ""}
+                            {workspace.id == note.workspace ? "(current)" : ""}
                           </span>
                         </button>
                       );

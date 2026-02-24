@@ -17,19 +17,19 @@ export default function EditWorkspacesModal({
   selectedWorkspace: string;
   setSelectedWorkspace: (x: string) => void;
 }) {
-  function deleteWorkspace(workspaceId: string) {
+  function deleteWorkspace(workspace: string) {
     const updatedWorkspaces = workspaces.filter(
-      (workspace) => workspaceId !== workspace.id
+      (workspace) => workspace !== workspace.id,
     );
-    if (workspaceId == selectedWorkspace) {
+    if (workspace == selectedWorkspace) {
       setSelectedWorkspace(workspaces.length > 0 ? workspaces[0].id : "all");
     }
     setWorkspaces(updatedWorkspaces);
   }
 
-  function updateName(workspaceId: string, value: string) {
+  function updateName(workspace: string, value: string) {
     const newWorkspace = workspaces.map((x: Workspace) =>
-      x.id == workspaceId ? { ...x, name: value } : x
+      x.id == workspace ? { ...x, name: value } : x,
     );
     setWorkspaces(newWorkspace);
   }

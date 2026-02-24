@@ -32,11 +32,11 @@ function App() {
     setNotes((prev) => [...prev, duplicateNote]);
   };
 
-  const updateNote = (workspaceId: string, noteId: string) => {
+  const updateNote = (workspace: string, noteId: string) => {
     console.log(noteId);
     setNotes((prev) =>
       prev.map((note) =>
-        note.id == noteId ? { ...note, workspaceId: workspaceId } : note,
+        note.id == noteId ? { ...note, workspace: workspace } : note,
       ),
     );
   };
@@ -118,7 +118,7 @@ function App() {
                 .filter(
                   (note) =>
                     selectedWorkspace === "all" ||
-                    note.workspaceId ===
+                    note.workspace ===
                       workspaces.find(
                         (workspace) => workspace.id == selectedWorkspace,
                       )?.id,

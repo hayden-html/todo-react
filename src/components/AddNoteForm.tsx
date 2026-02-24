@@ -1,4 +1,4 @@
-// Todo - ensure that the workspace fieldselect defaults to the first workspace, when deleting workspace that is currently selected, the note.workspaceId is not updated
+// Todo - ensure that the workspace fieldselect defaults to the first workspace, when deleting workspace that is currently selected, the note.workspace is not updated
 
 import { useState, type ChangeEvent } from "react";
 import type { Note, Workspace } from "../types";
@@ -16,14 +16,14 @@ function AddNoteForm({ setNotes, selectedWorkspace, workspaces }: Props) {
   const [note, setNote] = useState({
     title: "",
     body: "",
-    workspaceId: workspaces[0].id,
+    workspace: workspaces[0].id,
   });
 
   const isWorkspaceAvailable = workspaces.some(
-    (workspace) => workspace.id == note.workspaceId,
+    (workspace) => workspace.id == note.workspace,
   );
   if (!isWorkspaceAvailable) {
-    setNote((prev) => ({ ...prev, workspaceId: workspaces[0].id }));
+    setNote((prev) => ({ ...prev, workspace: workspaces[0].id }));
   }
 
   function createNote(e: ChangeEvent<HTMLFormElement>) {
@@ -36,12 +36,12 @@ function AddNoteForm({ setNotes, selectedWorkspace, workspaces }: Props) {
 
     const newNote: Note = {
       id: crypto.randomUUID(),
-      noteTitle: note.title,
-      noteBody: note.body,
+      title: note.title,
+      body: note.body,
       createdAt: new Date().toISOString(),
-      workspaceId:
+      workspace:
         // think this is wrong
-        selectedWorkspace == "all" ? note.workspaceId : selectedWorkspace,
+        selectedWorkspace == "all" ? note.workspace : selectedWorkspace,
       height: "4rem",
       width: "4rem",
     };
@@ -52,18 +52,18 @@ function AddNoteForm({ setNotes, selectedWorkspace, workspaces }: Props) {
     setNote({
       title: "",
       body: "",
-      workspaceId:
-        selectedWorkspace == "all" ? note.workspaceId : selectedWorkspace,
+      workspace:
+        selectedWorkspace == "all" ? note.workspace : selectedWorkspace,
     });
   }
 
-  function updateNoteBody(e: ChangeEvent<HTMLTextAreaElement>) {
+  function updatebody(e: ChangeEvent<HTMLTextAreaElement>) {
     setNote((prev) => ({ ...prev, body: e.target.value }));
   }
 
   const currentColor = workspaces.find((workspace) =>
     selectedWorkspace == "all"
-      ? workspace.id === note.workspaceId
+      ? workspace.id === note.workspace
       : workspace.id === selectedWorkspace,
   )?.color;
 
@@ -79,7 +79,7 @@ function AddNoteForm({ setNotes, selectedWorkspace, workspaces }: Props) {
           <textarea
             className="form__textarea"
             value={note.body}
-            onChange={updateNoteBody}
+            onChange={updatebody}
             name="noteContent"
             placeholder="Start Typing..."
             autoComplete="off"
@@ -103,7 +103,7 @@ function AddNoteForm({ setNotes, selectedWorkspace, workspaces }: Props) {
                   style={{
                     backgroundColor: workspace.color,
                     borderColor:
-                      workspace.id === note.workspaceId
+                      workspace.id === note.workspace
                         ? "white"
                         : workspace.color,
                   }}
@@ -114,11 +114,11 @@ function AddNoteForm({ setNotes, selectedWorkspace, workspaces }: Props) {
                     className="hidden-input"
                     id={"note-workspace-" + workspace.id}
                     value={workspace.id}
-                    checked={note.workspaceId === workspace.id}
+                    checked={note.workspace === workspace.id}
                     onChange={(e) =>
                       setNote((prev) => ({
                         ...prev,
-                        workspaceId: e.target.value,
+                        workspace: e.target.value,
                       }))
                     }
                     type="radio"

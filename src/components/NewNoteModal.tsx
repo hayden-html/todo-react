@@ -36,10 +36,10 @@ export default function NewNoteModal({
 
   const emptyNote = {
     id: crypto.randomUUID(),
-    noteTitle: "",
+    title: "",
 
-    noteBody: "",
-    workspaceId:
+    body: "",
+    workspace:
       selectedWorkspace === "all" ? workspaces[0].id : selectedWorkspace,
     createdAt: new Date().toISOString(),
     height: "64px",
@@ -47,11 +47,11 @@ export default function NewNoteModal({
   };
   const [newNote, setNewNote] = useState(emptyNote);
 
-  function updateNoteTitle(e: ChangeEvent<HTMLInputElement>) {
-    setNewNote((prev) => ({ ...prev, noteTitle: e.target.value }));
+  function updatetitle(e: ChangeEvent<HTMLInputElement>) {
+    setNewNote((prev) => ({ ...prev, title: e.target.value }));
   }
-  function updateNoteBody(e: ChangeEvent<HTMLTextAreaElement>) {
-    setNewNote((prev) => ({ ...prev, noteBody: e.target.value }));
+  function updatebody(e: ChangeEvent<HTMLTextAreaElement>) {
+    setNewNote((prev) => ({ ...prev, body: e.target.value }));
   }
 
   function saveNotes(e: ChangeEvent<HTMLFormElement>) {
@@ -108,11 +108,11 @@ export default function NewNoteModal({
                     htmlFor={"new-note-modal-" + workspace.id}
                     style={{
                       color:
-                        newNote.workspaceId === workspace.id
+                        newNote.workspace === workspace.id
                           ? ""
                           : workspace.color,
                       backgroundColor:
-                        newNote.workspaceId === workspace.id
+                        newNote.workspace === workspace.id
                           ? workspace.color
                           : "",
                       borderColor: workspace.color,
@@ -126,11 +126,11 @@ export default function NewNoteModal({
                       onChange={(e) =>
                         setNewNote((prev) => ({
                           ...prev,
-                          workspaceId: e.target.value,
+                          workspace: e.target.value,
                         }))
                       }
                       value={workspace.id}
-                      checked={newNote.workspaceId === workspace.id}
+                      checked={newNote.workspace === workspace.id}
                       id={"new-note-modal-" + workspace.id}
                       name="workspace-select"
                     />
@@ -141,9 +141,8 @@ export default function NewNoteModal({
             <div
               className="rounded-2xl border-2 bg-neutral-800 p-2"
               style={{
-                borderColor: workspaces.find(
-                  (x) => x.id === newNote.workspaceId,
-                )?.color,
+                borderColor: workspaces.find((x) => x.id === newNote.workspace)
+                  ?.color,
               }}
             >
               <form onSubmit={saveNotes} className="flex flex-col">
@@ -151,16 +150,16 @@ export default function NewNoteModal({
                   placeholder="Title"
                   className="placeholder:text-neutral-400 text-neutral-200 font-semibold text-3xl leading-none  p-1.5 focus-within:outline-0 min-w-90
                   overflow-hidden min-h-20"
-                  value={newNote.noteTitle}
-                  onChange={updateNoteTitle}
+                  value={newNote.title}
+                  onChange={updatetitle}
                   type="text"
                 />
                 {/* <hr className="mt-2 text-neutral-600" /> */}
                 <textarea
                   placeholder="Write you note here..."
                   className="placeholder:text-neutral-400 p-1.5 min-h-50 focus-within:outline-0 text-neutral-200 resize-none"
-                  value={newNote.noteBody}
-                  onChange={updateNoteBody}
+                  value={newNote.body}
+                  onChange={updatebody}
                 />
                 <div className="mt-auto flex justify-end">
                   <button
@@ -168,7 +167,7 @@ export default function NewNoteModal({
                     className="m-2 p-2 px-4 rounded-xl text-neutral-800 font-semibold text-lg"
                     style={{
                       backgroundColor: workspaces.find(
-                        (x) => x.id === newNote.workspaceId,
+                        (x) => x.id === newNote.workspace,
                       )?.color,
                     }}
                   >
@@ -177,9 +176,8 @@ export default function NewNoteModal({
                   <button
                     className="m-2 p-2 px-4 rounded-xl text-neutral-800 font-semibold text-lg border-2"
                     style={{
-                      color: workspaces.find(
-                        (x) => x.id === newNote.workspaceId,
-                      )?.color,
+                      color: workspaces.find((x) => x.id === newNote.workspace)
+                        ?.color,
                     }}
                     onClick={() => setNewNoteModal(false)}
                   >

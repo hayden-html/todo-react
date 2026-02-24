@@ -19,7 +19,7 @@ export default function EditWorkspaceChild({
   workspaces: Workspace[];
   index: number;
   deleteWorkspace: (x: string) => void;
-  updateName: (workspaceId: string, value: string) => void;
+  updateName: (workspace: string, value: string) => void;
 }) {
   const [isEditing, setIsEditing] = useState(false);
 
